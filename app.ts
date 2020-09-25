@@ -1,7 +1,5 @@
 import { helloRouter } from '@routers/hello.router';
 import express, { Express } from 'express';
-import path from 'path';
-import cookieParser from 'cookie-parser';
 import * as http from 'http';
 import logger from 'morgan';
 
