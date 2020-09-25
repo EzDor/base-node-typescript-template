@@ -1,0 +1,1 @@
+export const MERCHANT_IDENTIFIER_HEADER_KEY: string = 'merchant-identifier';
