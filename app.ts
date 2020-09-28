@@ -1,21 +1,31 @@
 import { helloRouter } from '@routers/hello.router';
-import express, { Express } from 'express';
-import * as http from 'http';
-import logger from 'morgan';
+import express, { Application } from 'express';
+import { HttpServer } from 'src/core/http-server';
 
-const server = async () => {
-  const app = express();
+class App {
+  public static readonly PORT: number = 3000;
+  private app: Application;
+  private httpServer: HttpServer;
+  private port: string | number;
+  private baseUrl: string;
 
-  app.use(logger('dev'));
-  app.use(express.json());
-  app.use(express.urlencoded({ extended: false }));
-  registerRoutes(app);
-  http.createServer(app).listen(3000);
-};
+  constructor() {
+    this.config();
+    this.createApp();
+  }
 
-const registerRoutes = (app: Express) => {
-  const baseUrl: string = '/api';
-  app.use(baseUrl, helloRouter);
-};
+  private config(): void {
+    this.port = process.env.PORT || App.PORT;
+    this.baseUrl = '/api';
+  }
 
-server().then(() => console.log('server running'));
+  private createApp(): void {
+    this.app = express();
+    this.httpServer = new HttpServer(this.app, this.port);
+  }
+  private registerRoutes = (app: Application) => {
+    app.use(this.baseUrl, helloRouter);
+  };
+}
+
+export const app = new App();

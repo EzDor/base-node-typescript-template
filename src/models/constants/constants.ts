@@ -1,1 +1,1 @@
-export const MERCHANT_IDENTIFIER_HEADER_KEY: string = 'merchant-identifier';
+export const BASE_APP_URL: string = 'merchant-identifier';
